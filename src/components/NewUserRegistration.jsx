@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { addNewUser } from '../utils/fdbManager'
+import { addNewDoc } from '../utils/fdbManager'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 
@@ -14,7 +14,10 @@ function NewUserRegistration() {
     useEffect(() => {
         if (userInDB && userInDB.id) {
             dispatch({type: 'SET_USER', payload: userInDB})
-            navigate('/customerinfo')
+            if(userInDB.isAdmin)
+                navigate('/adminmodeinfo')
+            else
+                navigate('/customermodeinfo')
         }
     }, [userInDB])
     
@@ -27,7 +30,7 @@ function NewUserRegistration() {
     const registerNewUser = () => {
         if (newUser) {
             const createUser = async() => {
-                const justCreatedUser = await addNewUser(newUser);
+                const justCreatedUser = await addNewDoc('users', newUser);
                 if(justCreatedUser && justCreatedUser.id){
                     setUserInDB(justCreatedUser);
                 }

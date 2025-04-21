@@ -21,15 +21,34 @@ const getUserByUserNameAndPassword = async (userName, password) => {
     return userToReturn;
 }
 
-const addNewUser = async (newUserToAdd) => {
-    const newUser = { ...newUserToAdd, isAdmin: false, createdOn: new Date() };
-    const data = await addDoc(collection(db, 'users'), newUser);
+const addNewDoc = async (collectionName, newDocToAdd) => {
+    const newDoc = { ...newDocToAdd, isAdmin: false, createdOn: new Date() };
+    const data = await addDoc(collection(db, collectionName), newDoc);
     if (data && data.id) {
-        return {...newUser, id: data.id}
+        return { ...newDoc, id: data.id }
     } else {
         return {};
     }
 }
 
+const getAllDocsByCollectionName = async (collectionName) => {
+    let docsToReturn = [];
 
-export { getUserByUserNameAndPassword, addNewUser }
+    if (collectionName) {
+        const coll = collection(db, collectionName);
+        const q = query(coll)
+    
+        const querySnapshot = await getDocs(q);
+        querySnapshot.docs.forEach((doc) => {
+            const data = doc.data();
+            docsToReturn.push({
+                id: doc.id,
+                ...data,
+            });
+        })
+    }
+    return docsToReturn;
+}
+
+
+export { getUserByUserNameAndPassword, addNewDoc, getAllDocsByCollectionName }
