@@ -1,4 +1,6 @@
-import { addDoc, collection, deleteDoc, doc, onSnapshot, query, where, getDocs } from 'firebase/firestore'
+import { async } from '@firebase/util';
+import { addDoc, collection, deleteDoc, doc, onSnapshot, query, where, getDocs, updateDoc } from 'firebase/firestore'
+import { data } from 'react-router-dom';
 import db from '../utils/firebase.js'
 
 const getUserByUserNameAndPassword = async (userName, password) => {
@@ -21,16 +23,6 @@ const getUserByUserNameAndPassword = async (userName, password) => {
     return userToReturn;
 }
 
-const addNewDoc = async (collectionName, newDocToAdd) => {
-    const newDoc = { ...newDocToAdd, isAdmin: false, createdOn: new Date() };
-    const data = await addDoc(collection(db, collectionName), newDoc);
-    if (data && data.id) {
-        return { ...newDoc, id: data.id }
-    } else {
-        return {};
-    }
-}
-
 const getAllDocsByCollectionName = async (collectionName) => {
     let docsToReturn = [];
 
@@ -50,5 +42,45 @@ const getAllDocsByCollectionName = async (collectionName) => {
     return docsToReturn;
 }
 
+const addNewDoc = async (collectionName, newDocToAdd) => {
+    try {
+        const newDoc = { ...newDocToAdd};
+        const data = await addDoc(collection(db, collectionName), newDoc);
+        if (data && data.id) {
+            return { ...newDoc, id: data.id }
+        } else {
+            return {};
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-export { getUserByUserNameAndPassword, addNewDoc, getAllDocsByCollectionName }
+const updateDocByDocId = async (collectionName, docId, docObj) => {
+    if(collectionName && docId && docObj){
+        try {
+            const resolveData = await updateDoc(doc(db, collectionName, docId), docObj)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    else{
+        console.error("fdbManager.updateDocByDocId: one or more passed params is null or undefined. ")
+    }
+}
+
+const deleteDocByDocId = async (collectionName, docId) => {
+    if(collectionName && docId){
+        try {
+            const deleteDocResolveData = await deleteDoc(doc(db, collectionName, docId))
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    else{
+        console.error("fdbManager.deleteDocByDocId: one or more passed params is null or undefined. ")
+    }
+}
+
+
+export { getUserByUserNameAndPassword, addNewDoc, getAllDocsByCollectionName, updateDocByDocId, deleteDocByDocId }

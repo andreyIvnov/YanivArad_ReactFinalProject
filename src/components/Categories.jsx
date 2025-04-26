@@ -1,6 +1,7 @@
 import { memo } from "react"
 import { useSelector } from "react-redux";
-import Categoria from "./Categoria";
+import Category from "./Category";
+import AddNewCategory from "./AddNewCategory";
 
 const Categories = () => {
   const categories = useSelector((state) => state.categories);
@@ -8,16 +9,21 @@ const Categories = () => {
   return (
     <>
       {!categories &&
-        <h3>Loading categories...</h3>
+        <div style={{ textAlign: 'left', backgroundColor: 'lightgray', padding: '8px 0 0 20px' }}>
+          <h3>Loading categories...</h3>
+        </div>
       }
       {categories && categories.length > 0 &&
         <>
-          <h3>Categories</h3>
-          {categories.map(cat => {
-            return (<>
-              <Categoria key={cat.id} categoria={cat} /><br />
-            </>)
-          })}
+          <div style={{ textAlign: 'left', backgroundColor: 'lightgray', padding: '8px 0 0 20px' }}>
+            <h3>Categories</h3>
+            {categories.map(cat => {
+              return (
+                <Category key={cat.id} category={cat} />
+              )
+            })}
+            <AddNewCategory/>
+          </div>
         </>
       }
     </>

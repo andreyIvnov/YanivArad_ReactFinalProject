@@ -30,7 +30,7 @@ function NewUserRegistration() {
     const registerNewUser = () => {
         if (newUser) {
             const createUser = async() => {
-                const justCreatedUser = await addNewDoc('users', newUser);
+                const justCreatedUser = await addNewDoc('users', { ...newUser, isAdmin: false, createdOn: new Date() });
                 if(justCreatedUser && justCreatedUser.id){
                     setUserInDB(justCreatedUser);
                 }
