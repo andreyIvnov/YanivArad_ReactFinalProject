@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux"
-import { deleteDocByDocId, updateDocByDocId } from "../utils/fdbManager";
+import { deleteDocByDocId, updateDocByDocId } from "../../utils/fdbManager";
 
 const fbCollectionName = 'categories';
 

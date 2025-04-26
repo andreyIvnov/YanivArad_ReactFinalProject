@@ -14,10 +14,24 @@ const AdminModeInfo = () => {
         if (logInedUser && logInedUser.id) {
 
             const setAdminModeData = async () => {
+                const dataToSet = {};
+
                 const categories = await getAllDocsByCollectionName('categories');
                 if (categories && categories.length > 0) {
-                    dispatch({ type: 'SET_CATEGORIES', payload: categories })
+                    dataToSet.categories = categories;
                 }
+
+                const customers = await getAllDocsByCollectionName('users');
+                if (customers && customers.length > 0) {
+                    dataToSet.customers = customers;
+                }
+
+                const products = await getAllDocsByCollectionName('products');
+                if (products && products.length > 0) {
+                    dataToSet.products = products;
+                }
+
+                dispatch({type: 'SET_FULL_ADMIN_DATA', payload: dataToSet});
             }
 
             setAdminModeData()
@@ -32,9 +46,9 @@ const AdminModeInfo = () => {
     }, [])
 
     useEffect(() => {
-        if(user && user.id) navigate("categories");
+        if (user && user.id) navigate("categories");
     }, [user])
-    
+
 
     return (
         <>

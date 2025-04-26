@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { useSelector } from "react-redux";
-import Category from "./Category";
-import AddNewCategory from "./AddNewCategory";
+import Category from "../Categories/Category";
+import AddNewCategory from "../Categories/AddNewCategory";
 
 const Categories = () => {
   const categories = useSelector((state) => state.categories);

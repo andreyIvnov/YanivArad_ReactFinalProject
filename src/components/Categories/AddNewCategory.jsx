@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux";
-import { addNewDoc } from "../utils/fdbManager";
+import { addNewDoc } from "../../utils/fdbManager";
 
 
 function AddNewCateroria() {

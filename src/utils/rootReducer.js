@@ -1,7 +1,9 @@
 const initialState = {
     user: {},
+
     products: [],
-    categories: []
+    categories: [],
+    customers: [],
 }
 
 const firebaseDocsReducer = (state = initialState, action) => {
@@ -10,27 +12,42 @@ const firebaseDocsReducer = (state = initialState, action) => {
             return { state, user: state.user = action.payload }
         }
 
-        case "SET_CATEGORIES":{
-            return {state, categories: state.categories = action.payload}
+        // GATEGORIES
+        case "SET_CATEGORIES": {
+            return { state, categories: state.categories = action.payload }
         }
 
-        case "ADD_CATEGORY":{
+        case "ADD_CATEGORY": {
             return { ...state, categories: state.categories = [...state.categories, action.payload] };
         }
 
-        case "DELITE_CATEGORY":{
+        case "DELITE_CATEGORY": {
             const categories = state.categories.filter((category) => category.id !== action.payload)
 
             return { ...state, categories: state.categories = [...categories] };
         }
 
-        case "UPDATE_CATEGORY":{
+        case "UPDATE_CATEGORY": {
             const categories = [...state.categories]
             const index = categories.findIndex((category) => { return category.id == action.payload.id });
             if (index !== -1) {
                 categories[index] = action.payload
             }
             return { ...state, categories };
+        }
+
+
+        //CUSTOMERS
+        case "SET_CUSTOMERS": {
+            return { state, customers: state.customers = action.payload };
+        }
+
+        case "SET_FULL_ADMIN_DATA": {
+            return {
+                state, categories: state.categories = action.payload.categories && action.payload.customers.length > 0 ? action.payload.categories : [],
+                customers: state.customers = action.payload.customers && action.payload.customers.length > 0 ? action.payload.customers : [],
+                products: state.products = action.payload.products && action.payload.products.length > 0 ? action.payload.products : []
+            }
         }
 
         // case 'ADD_PRODUCT':
