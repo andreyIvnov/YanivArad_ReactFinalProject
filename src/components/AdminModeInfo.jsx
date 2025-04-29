@@ -31,6 +31,11 @@ const AdminModeInfo = () => {
                     dataToSet.products = products;
                 }
 
+                const carts = await getAllDocsByCollectionName('carts');
+                if (carts && carts.length > 0) {
+                    dataToSet.carts = carts;
+                }
+
                 dispatch({type: 'SET_FULL_ADMIN_DATA', payload: dataToSet});
             }
 
