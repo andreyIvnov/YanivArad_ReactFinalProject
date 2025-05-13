@@ -7,11 +7,9 @@ function Customer({ customer }) {
         <>
             {customer &&
                 <>
-                <div style={{textAlign: 'left'}}>
-                    {customer.firstName + " " + customer.lastName} <span/>
-                    {customer.createdOn.toDate().toLocaleString()}
-                    <CustomerCart cart={customer.cart}/>
-                </div>
+                    <td style={{ padding: '0 10px 0 10px' }}>{customer.firstName + " " + customer.lastName}</td>
+                    <td style={{ padding: '0 10px 0 10px' }}>{customer.createdOn.toDate().toLocaleDateString()}</td>
+                    <td style={{ padding: '10px 10px 10px 10px', textAlign: 'left' }}><CustomerCart cart={customer.cart} /></td>
                 </>
             }
         </>

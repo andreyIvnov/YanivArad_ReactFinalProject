@@ -48,7 +48,7 @@ const firebaseDocsReducer = (state = initialState, action) => {
                 state, categories: state.categories = action.payload.categories && action.payload.customers.length > 0 ? action.payload.categories : [],
                 customers: state.customers = action.payload.customers && action.payload.customers.length > 0 ? action.payload.customers : [],
                 products: state.products = action.payload.products && action.payload.products.length > 0 ? action.payload.products : [],
-                carts: state.carts = action.payload.carts && action.payload.carts.length > 0 ? action.payload.carts : []
+                carts: state.carts = action.payload.carts && action.payload.carts.length > 0 ? action.payload.carts : [],
             }
         }
 

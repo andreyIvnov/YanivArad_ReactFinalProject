@@ -33,6 +33,7 @@ const getAllDocsByCollectionName = async (collectionName) => {
             const data = doc.data();
             docsToReturn.push({
                 id: doc.id,
+                createdOn: doc._document.createTime.timestamp,
                 ...data,
             });
         })
