@@ -32,7 +32,7 @@ const firebaseDocsReducer = (state = initialState, action) => {
             const categories = [...state.categories]
             const index = categories.findIndex((category) => { return category.id == action.payload.id });
             if (index !== -1) {
-                categories[index] = action.payload
+                categories[index] = { ...categories[index], ...action.payload }
             }
             return { ...state, categories };
         }
@@ -43,6 +43,25 @@ const firebaseDocsReducer = (state = initialState, action) => {
             return { state, customers: state.customers = action.payload };
         }
 
+        //PRODUCTS
+        case 'UPDATE_PRODUCT': {
+            const products = [...state.products]
+            const index = products.findIndex((product) => { return product.id == action.payload.id });
+            if (index !== -1) {
+                if (action.payload.newId) {
+                    products[index] = { ...products[index], ...action.payload, id: action.payload.newId, newId: null }
+                }
+                else
+                    products[index] = { ...products[index], ...action.payload }
+            }
+            return { ...state, products };
+        }
+
+        case 'ADD_PRODUCT': {
+            return { ...state, products: state.products = [...state.products, action.payload] };
+        }
+
+
         case "SET_FULL_ADMIN_DATA": {
             return {
                 state, categories: state.categories = action.payload.categories && action.payload.customers.length > 0 ? action.payload.categories : [],
@@ -52,17 +71,7 @@ const firebaseDocsReducer = (state = initialState, action) => {
             }
         }
 
-        // case 'ADD_PRODUCT':
-        //     return { ...state, products: state.products = [...state.products, action.payload] };
 
-        // case 'UPDATE_PRODUCT':{
-        //     const products = [...state.products]
-        //     const index = products.findIndex((product) => { return product.id == action.payload.id });
-        //     if (index !== -1) {
-        //         products[index] = action.payload
-        //     }
-
-        //     return { ...state, products };}
 
         // case 'DELITE_PRODUCT':{
         //     const products = state.products.filter((product) => product.id !== action.payload)

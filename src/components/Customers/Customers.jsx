@@ -11,10 +11,10 @@ function Customers() {
     <>
       {customers && customers.length > 0 &&
         <>
-          <div style={{ backgroundColor: 'lightgray', padding: '8px 0 0 20px' }}>
+          <div style={{ backgroundColor: 'lightgray', padding: '8px 0 20px 20px' }}>
             <h3>Customers</h3>
             <div>
-              <table border={2} >
+              <table border={2} style={{ backgroundColor: 'white'}}>
                 <thead>
                   <tr>
                     <th>Full Name</th>
@@ -41,4 +41,4 @@ function Customers() {
   )
 }
 
-export default Customers
+export default memo(Customers)

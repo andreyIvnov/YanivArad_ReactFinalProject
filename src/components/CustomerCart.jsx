@@ -42,7 +42,7 @@ function CustomerCart({ cart }) {
                 <tr key={product.id}>
                   <td>{product.title}</td>
                   <td>{product.count}</td>
-                  <td>{product.createdOn?.toDate().toLocaleDateString()}</td>
+                  <td>{cart.createdOn?.toDate().toLocaleDateString()}</td>
                 </tr>
               )
             })}

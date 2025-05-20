@@ -6,7 +6,7 @@ import NewUserRegistration from './components/NewUserRegistration.jsx'
 import CustomerModeInfo from './components/CustomerModeInfo.jsx'
 import AdminModeInfo from './components/AdminModeInfo.jsx'
 import Categories from './components/Categories/Categories'
-import Products from './components/Products.jsx'
+import Products from './components/Products/Products.jsx'
 import Customers from './components/Customers/Customers'
 import Statistics from './components/Statistics.jsx'
 
